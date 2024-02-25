@@ -173,7 +173,7 @@ def spam(token, channel_id, message, delay):
         if str(code)[0] == 2:
             pass
         if code == 429:
-            log(f"Hit ratelimit - retry after :{request_spam.json()["retry_after"]}")
+            log(f"Hit ratelimit - retry after :{request_spam.json()['retry_after']}")
             time.sleep(float(request_spam.json()["retry_after"]) + 0.62)
         if code == 401:
             print("\n" + string.invalid_token)
