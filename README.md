@@ -1,3 +1,12 @@
+![codename](https://img.shields.io/badge/codename-ApiStorm-magenta)
+![version](https://img.shields.io/badge/version-0.0.1-yellow)
+![py_version](
+https://img.shields.io/badge/Python-3.6-green
+)
+![telegram_contact](https://img.shields.io/badge/t.me/oberwissen-red
+)
+
+
 #  dcoffin
 Discord message spammer with the power of threading
 
