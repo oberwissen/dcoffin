@@ -6,30 +6,32 @@ import shutil
 from zipfile import ZipFile
 import io
 
-from DSECTOR import setup
+from util import token_checker
+
 from DSECTOR import clear_terminal
 from DSECTOR import set_terminal_title
 from DSECTOR import input_text
 from DSECTOR import thread_list
-
-debug_enabled = False
-debug_request_code = True
-
+from DSECTOR import terminate
 
 from projekt import firmware_over_the_air
 
 from LANG import selected
 
-if debug_enabled == True:
+debug_enabled = False
+debug_request_code = True
+
+if debug_enabled:
     from OBER import DEBUG as debug
     print("WAITING FOR DEBUGGER")
     debug.init()
     from OBER.DEBUG import log
 else:
-    def log(mess):
-        pass
+    def log(mess=None):
+        return mess
 
-
+with open("OBER/lang.txt", "w") as file:
+    file.write("EN")
 
 log("setting terminal title...")
 set_terminal_title()
@@ -42,6 +44,7 @@ try:
     import requests
     import fade
     import colorama
+    from colorama import Fore
     colorama.init(autoreset=True)
 except Exception as e:
     log(f"Exception : {e}")
@@ -50,12 +53,17 @@ except Exception as e:
     print("TR Eksik modüller, lütfen gerekli modülleri indirin.")
     exit(1)
 
+try:
+    requests.post("https://google.com/")
+except:
+    print("This script cannot be used without internet!")
+    sys.exit()
+
 log("cheching oobe status")
-with open("OBER/is_first_time.txt","r") as is_first_time_file:
+with open("OBER/is_first_time.txt", "r") as is_first_time_file:
     is_first_time = is_first_time_file.read().splitlines()[0]
     if is_first_time == "1":
         log("oobe is active")
-        setup()
     else:
         log("oobe is complete")
 
@@ -70,7 +78,7 @@ with open("OBER/lang.txt", "r") as lang_file:
         from LANG import english as string
 
 
-def main(opcode = None):
+def main(opcode=None):
     clear_terminal()
     print(fade.brazil(string.ascii_title))
     if opcode == 0x1:
@@ -81,7 +89,10 @@ def main(opcode = None):
         print(string.spam_started)
     print(string.start_menu)
     while True:
-        choice = str(input(input_text))
+        try:
+            choice = str(input(input_text))
+        except KeyboardInterrupt:
+            sys.exit()
         if len(choice) == 0:
             choice = "`"
         if choice[0] == "0":
@@ -89,29 +100,105 @@ def main(opcode = None):
             print(string.thanks_and_bye)
             sys.exit(0)
         if choice[0] == "1":
-            pass
+            clear_terminal()
+            check_for_updates()
+            main()
+            break
         if choice[0] == "2":
-            normal_spam_frontend()
+            changelog()
             break
         if choice[0] == "3":
-            changelog()
+            normal_spam_frontend()
+            break
+        if choice[0] == "4":
+            clear_terminal()
+            token_checker_frontend()
             break
         clear_terminal()
         main(opcode=0x1)
+
+def token_checker_frontend():
+    print("Please wait...")
+    fail = 0
+    success = 0
+    valid_tokens = []
+    invalid_tokens = []
+    with open("discord/tokens.txt", "r") as file:
+        tokens = file.read().splitlines()
+    for token in tokens:
+        if token_checker.check_token(token=token) == True:
+            valid_tokens.append(token)
+            success = success + 1
+        else:
+            invalid_tokens.append(token)
+            fail = fail + 1
+        clear_terminal()
+        print(f"""
+[ *** ] {Fore.CYAN}Checking tokens, plase wait...{Fore.RESET}
+        Valid Token   : {success}
+        Invalid Token : {fail}
+        """)
+    clear_terminal()
+    while True:
+        print(f"""
+[ *** ] {Fore.GREEN}Tokens are checked succesfully!{Fore.RESET}
+        Valid Token   : {success}
+        Invalid Token : {fail}
+                """)
+        print(f"""
+    {Fore.CYAN}0{Fore.RESET}| Return to main menu
+    
+    {Fore.CYAN}1{Fore.RESET}| Show invalid tokens
+    {Fore.CYAN}2{Fore.RESET}| Show valid tokens
+    {Fore.CYAN}3{Fore.RESET}| Remove invalid tokens from file
+        """)
+        choice = str(input(input_text))
+        if len(choice) == 0:
+            choice = "`"
+        if choice[0] == "0":
+            main()
+            break
+        if choice[0] == "1":
+            clear_terminal()
+            for token in invalid_tokens:
+                print(token)
+            input("\n" + string.enter_to_return)
+            clear_terminal()
+        if choice[0] == "2":
+            clear_terminal()
+            for token in valid_tokens:
+                print(token)
+            input("\n" + string.enter_to_return)
+            clear_terminal()
+        if choice[0] == "3":
+            valid_token_data = ""
+            with open("discord/tokens.txt", "w") as file:
+                for token in valid_tokens:
+                    valid_token_data = valid_token_data + token + "\n"
+                file.write(valid_token_data)
+            print(Fore.GREEN + "\nSuccess ! \n")
+            time.sleep(2)
+            clear_terminal()
+
+
 
 
 def changelog():
     clear_terminal()
     print(string.whats_new)
-    input(string.enter_to_return)
+    try:
+        input(string.enter_to_return)
+    except KeyboardInterrupt:
+        terminate()
     main()
+
 
 def check_for_updates():
     log("Checking for updates")
     print(string.checking_updates)
     try:
         repo_revision = requests.get("https://raw.githubusercontent.com/oberwissen/dcoffin/main/revision.txt").text.splitlines()[0]
-    except:
+    except Exception as e:
         return
     if int(repo_revision) > firmware_over_the_air.revision:
         print(string.update_available)
@@ -122,6 +209,7 @@ def check_for_updates():
             clear_terminal()
             return
         update()
+
 
 def update():
     clear_terminal()
@@ -158,6 +246,9 @@ def remove_all_files():
             shutil.rmtree(file_path)
 
 
+
+
+
 def spam(token, channel_id, message, delay):
     headers = {
         "authorization" : token
@@ -168,7 +259,11 @@ def spam(token, channel_id, message, delay):
     url = f"https://discord.com/api/v9/channels/{channel_id}/messages"
     while True:
         time.sleep(delay)
-        request_spam = requests.post(url, headers=headers, data=data)
+        try:
+            request_spam = requests.post(url, headers=headers, data=data)
+        except Exception as e:
+            print(f"{string.check_net_connection} ( {e} )")
+            return
         code = request_spam.status_code
         if str(code)[0] == 2:
             pass
@@ -202,7 +297,10 @@ def normal_spam_frontend():
     input()
     clear_terminal()
     while True:
-        message = input(string.message)
+        try:
+            message = str(input(string.message))
+        except KeyboardInterrupt:
+            terminate()
         if len(message) != 0:
             clear_terminal()
             break
@@ -213,6 +311,8 @@ def normal_spam_frontend():
             break
         except ValueError:
             print(string.please_enter_valid_num, end="\n\n")
+        except KeyboardInterrupt:
+            terminate()
     start_spam(message, delay)
 
 

@@ -25,6 +25,9 @@ def set_terminal_title():
     else:
         sys.stdout.write(f"\x1b]2;{string.cmd_title}\x07")
 
+def terminate(reason=None):
+    sys.exit()
+
 
 def setup():
     print("EN Select a language - TR Bir dil seçin")
