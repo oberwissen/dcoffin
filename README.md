@@ -8,7 +8,7 @@ https://img.shields.io/badge/Python-3.6-green
 
 
 #  dcoffin
-Discord message spammer with the power of threading
+Discord multi-tool with the power of threading
 
 # About
 This project is a product of Oberwissen. --- t.me/oberwissen
@@ -22,6 +22,8 @@ This project is a product of Oberwissen. --- t.me/oberwissen
 - No capchta
 - Self-update support
 - Threading support
+- Mass token checker
+- Auto-remove invalid tokens
 
 ## How to install
 
