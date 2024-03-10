@@ -6,18 +6,18 @@ from projekt import general
 langpac_revision = "1"
 
 ascii_title = """
-     MADE BY OBERWISSENFÜHRER YAKUP ASLANTAS
-██████╗  ██████╗ ██████╗ ███████╗███████╗██╗███╗   ██╗
-██╔══██╗██╔════╝██╔═══██╗██╔════╝██╔════╝██║████╗  ██║
-██║  ██║██║     ██║   ██║█████╗  █████╗  ██║██╔██╗ ██║
-██║  ██║██║     ██║   ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║
-██████╔╝╚██████╗╚██████╔╝██║     ██║     ██║██║ ╚████║
-╚═════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝
-                     OBERWISSEN
-                   t.me/oberwissen
+       MADE BY OBERWISSENFÜHRER YAKUP ASLANTAS
+  ██████╗  ██████╗ ██████╗ ███████╗███████╗██╗███╗   ██╗
+  ██╔══██╗██╔════╝██╔═══██╗██╔════╝██╔════╝██║████╗  ██║
+  ██║  ██║██║     ██║   ██║█████╗  █████╗  ██║██╔██╗ ██║
+  ██║  ██║██║     ██║   ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║
+  ██████╔╝╚██████╗╚██████╔╝██║     ██║     ██║██║ ╚████║
+  ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝
+                       OBERWISSEN
+                     t.me/oberwissen
 """
 
-cmd_title = f"dcoffin {general.version} - EN {langpac_revision} - t.me/oberwissen"
+cmd_title = f"dcoffin {general.version} - t.me/oberwissen"
 
 not_a_option = f"{Fore.RED}{Style.BRIGHT} [ ! ] {Style.RESET_ALL} That option does not exists."
 thanks_and_bye = "Thank you for using our product! - t.me/oberwissen"
@@ -43,22 +43,30 @@ update_success = "Update is successful, restart for it to take effect."
 enter_to_return = "Press [ ENTER ] key to return"
 
 whats_new = """
-dcoffin version 0.0.1 ----------
+dcoffin version 0.0.2 ----------
 
- - Initial release
+ - The program is stabilized for future significant updates
+ - Turkish language support is discontiuned
+ - Added mass token checker feature
+ - Minor terminal style improvements
+ - Fixed a bug where check for updates option not working
+ 
 """
 
 
-start_menu = f"""
-SELECT A OPTION
+check_net_connection = "PLease check your internet connection."
 
+start_menu = f"""
+    SELECT A OPTION
+    
     --------------- DCOFFIN
     {Fore.CYAN}0{Fore.RESET}|  EXIT
     {Fore.CYAN}1{Fore.RESET}|  Check for updates
+    {Fore.CYAN}2{Fore.RESET}|  Changelog
 
     --------------- DISCORD
-    {Fore.CYAN}2{Fore.RESET}|  Normal Spam
-    {Fore.CYAN}3{Fore.RESET}|  Changelog
+    {Fore.CYAN}3{Fore.RESET}|  Normal Spam
+    {Fore.CYAN}4{Fore.RESET}|  Token Checker
 """
 
 if __name__ == "__main__":

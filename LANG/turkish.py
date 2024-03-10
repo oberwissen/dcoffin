@@ -55,12 +55,14 @@ checking_updates = "Güncellemeler denetleniyor..."
 updating = "Güncelleniyor... Lütfen bekleyin"
 update_success = "Güncelleme başarılı, etkili olması için yeniden başlatın."
 enter_to_return = "Geri dönmek için [ ENTER ] tuşuna basın"
+check_net_connection = "Lütfen internet bağlantınızı kontrol ediniz."
 
 
 whats_new = """
-dcoffin versiyon 0.0.1 ---------
+dcoffin versiyon 0.0.2 ---------
 
- - İlk sürüm
+ - Program gelecekteki önemli değişiklikler için stabilize edildi ve fault-tolerant hale getirildi
+ 
 """
 
 
