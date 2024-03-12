@@ -18,7 +18,7 @@ class oberwissen:
     project_generation_casual = "1st Generation of ApiStorm dcoffin project"
 
 class firmware_over_the_air:
-    revision = 2
+    revision = 3
 
 
 

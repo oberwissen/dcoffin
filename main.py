@@ -287,7 +287,7 @@ def start_spam(message,delay):
             thread = threading.Thread(target=spam, args=(token, channel_id, message, delay), daemon=True)
             thread.start()
             thread_list.append(thread)
-            main(0x2)
+    main(0x2)
 
 
 
