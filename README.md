@@ -1,5 +1,5 @@
 ![codename](https://img.shields.io/badge/codename-ApiStorm-magenta)
-![version](https://img.shields.io/badge/version-0.0.1-yellow)
+![version](https://img.shields.io/badge/version-0.0.3-yellow)
 ![py_version](
 https://img.shields.io/badge/Python-3.6-green
 )
