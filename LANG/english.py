@@ -43,13 +43,10 @@ update_success = "Update is successful, restart for it to take effect."
 enter_to_return = "Press [ ENTER ] key to return"
 
 whats_new = """
-dcoffin version 0.0.2 ----------
+dcoffin version 0.0.4 ----------
 
- - The program is stabilized for future significant updates
- - Turkish language support is discontiuned
- - Added mass token checker feature
- - Minor terminal style improvements
- - Fixed a bug where check for updates option not working
+ - Added new feature: Token info
+ - Fixed bugs
  
 """
 
@@ -67,6 +64,7 @@ start_menu = f"""
     --------------- DISCORD
     {Fore.CYAN}3{Fore.RESET}|  Normal Spam
     {Fore.CYAN}4{Fore.RESET}|  Token Checker
+    {Fore.CYAN}5{Fore.RESET}|  Token Info
 """
 
 if __name__ == "__main__":
