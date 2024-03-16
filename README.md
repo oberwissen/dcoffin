@@ -30,7 +30,7 @@ This project is a product of Oberwissen. --- t.me/oberwissen
 
 ### Windows
 - Install python from www.python.org don't forget to tick ADD TO PATH
-- Download sec.zip from releases then extract it
+- Download dcoff.zip from releases then extract it
 - navigate to files that you have extracted
 - right click > open with terminal
 - type pip install -r requirements.txt
