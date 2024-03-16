@@ -7,12 +7,14 @@ from zipfile import ZipFile
 import io
 
 from util import token_checker
+from util import token_info
 
 from DSECTOR import clear_terminal
 from DSECTOR import set_terminal_title
 from DSECTOR import input_text
 from DSECTOR import thread_list
 from DSECTOR import terminate
+from DSECTOR import line
 
 from projekt import firmware_over_the_air
 
@@ -113,6 +115,10 @@ def main(opcode=None):
         if choice[0] == "4":
             clear_terminal()
             token_checker_frontend()
+            break
+        if choice[0] == "5":
+            clear_terminal()
+            token_info_frontend()
             break
         clear_terminal()
         main(opcode=0x1)
@@ -247,6 +253,33 @@ def remove_all_files():
 
 
 
+def token_info_frontend():
+    token_id = 1
+    for i in open("discord/tokens.txt", "r").read().splitlines():
+        time.sleep(0.6)
+        print(Fore.CYAN + line())
+        print(f"\nToken {token_id} ( token.txt line {token_id} )", end="\n\n")
+        print(f"Token : {i}")
+        info = token_info.return_account_info(i)
+        token_id = token_id + 1
+        if info == False:
+            print(f"\n        {Fore.RED}Token Invalid\n")
+            continue
+        print(f"""
+        Username       : {info["username"]}        
+        Display Name   : {info["display_name"]}
+        User ID        : {info["id"]}
+        Phone Number   : {info["phone_number"]}  
+        E-mail         : {info["email"]}
+        Email Verified : {info["email_verified"]}
+        2FA Enabled    : {info["2fa"]}
+""")
+    print(Fore.GREEN + line())
+    input(string.enter_to_return)
+    main()
+
+
+
 
 
 def spam(token, channel_id, message, delay):
@@ -275,6 +308,7 @@ def spam(token, channel_id, message, delay):
             return
         if code == 403:
             print("\n" + string.access_denied)
+            return
         if debug_request_code == True:
             log(str(code))
 

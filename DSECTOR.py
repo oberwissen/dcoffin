@@ -29,6 +29,10 @@ def terminate(reason=None):
     sys.exit()
 
 
+def line():
+    width = os.get_terminal_size().columns
+    return '-' * width
+
 def setup():
     print("EN Select a language - TR Bir dil seçin")
     print("""
