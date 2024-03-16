@@ -24,6 +24,7 @@ This project is a product of Oberwissen. --- t.me/oberwissen
 - Threading support
 - Mass token checker
 - Auto-remove invalid tokens
+- Get token info
 
 ## How to install
 
