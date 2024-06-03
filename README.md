@@ -13,6 +13,8 @@ Discord multi-tool with the power of threading
 # About
 This project is a product of Oberwissen. --- t.me/oberwissen
 
+0.0.5 will be a big step from 0.0.4, its worth to wait ;)
+
 ## Features
 
 - Multi-language support
